@@ -1,0 +1,98 @@
+{% extends "layouts/main_layout.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-3 p-0">
+            <div class="status-box profil p-3">
+                <div class="row py-3">
+                    <div class="col-6">
+                        <h4>I Made Restu Weda</h4>
+
+                        <span class="font-so-small text-muted">Email</span>
+                        <span class="font-small"><b>Restu04@gmail.com</b></span>
+
+                        <div class="text-center mt-2">
+                            <a href="{{ url_for('setting') }}" class="btn dream-app btn-primary font-so-small py-1" style="width: 70%;">SETTING AKUN</a>
+                            <a href="#" class="btn btn-danger font-so-small p-1" style="width: 20%;">
+                                <i class="fa fa-sign-out"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <img src="{{ url_for('static', filename='img/user.png') }}" style="height: 100%;" class="img-fluid img-cover rounded" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="status-box pilih-kamera px-3 py-4">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected disabled>Pilih Kamera</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+
+                <div class="text-center mt-2">
+                    <a href="" class="btn dream-app btn-primary font-small py-1" style="width: 100%;">PROSES</a>
+                </div>
+            </div>
+            <div class="status-box hasil p-3 text-center">
+                <h4 class="text-dream-app"><b>HASIL</b></h4>
+                <!-- table -->
+                <table class="text-start font-bit-small text-dream-app text-bold">
+                    <tr>
+                        <td style="width: 120px;">
+                            Resolusi Frame
+                        </td>
+                        <td style="width: 20px;">
+                            :
+                        </td>
+                        <td>
+                            888 x 500
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 120px;">
+                            Nilai FPS
+                        </td>
+                        <td style="width: 20px;">
+                            :
+                        </td>
+                        <td>
+                            3
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 120px;">
+                            Status
+                        </td>
+                        <td style="width: 20px;">
+                            :
+                        </td>
+                        <td>
+                            Dolphin Muncul
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 120px;">
+                            Derajat
+                        </td>
+                        <td style="width: 20px;">
+                            :
+                        </td>
+                        <td>
+                            196&deg;
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="footer text-center pt-4">
+                <p class="font-so-small">Copyright © Undiksha 2023</p>
+            </div>
+        </div>
+        <div class="col-9 py-3 ps-0 pe-3">
+            <div class="video-box d-flex justify-content-center align-items-center" style="height: 100%; width: 100%;">
+                <h3 class="text-light">BELUM ADA VIDEO</h3>
+            </div>
+        </div>
+    </div>
+{% endblock %}
