@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, url_for
-import pyodbc
+# import pyodbc
+import requests
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "rahasiabangetdeh"
@@ -22,13 +23,22 @@ def index():
     # conn = connection()
     # cursor = conn.cursor()
     # cursor.execute('SELECT * FROM users')
+
+    if 'email' not in session:
+        return redirect(url_for('login'))
+
     title = 'Home'
+
+    # model logic
 
     return render_template('index.html', title=title)
 
 
 @app.route('/setting')
 def setting():
+    if 'email' not in session:
+        return redirect(url_for('login'))
+
     title = 'Setting'
 
     return render_template('setting.html', title=title)
@@ -36,6 +46,9 @@ def setting():
 
 @app.route('/login')
 def login():
+    if 'email' in session:
+        return redirect(url_for('index'))
+
     title = 'Login'
 
     return render_template('login.html', title=title)
@@ -43,10 +56,20 @@ def login():
 
 @app.route('/login', methods=['POST'])
 def loginProses():
+
+    if 'email' in session:
+        return redirect(url_for('index'))
+
     email = request.form['email']
     password = request.form['password']
 
-    if email == 'admin@sistem.com' and password == 'admin':
+    response = requests.post('https://reqres.in/api/login',
+                             json={'email': email, 'password': password})
+
+    if response.status_code == 200:
+        session['email'] = email
+        session['token'] = response.json()['token']
+
         return redirect(url_for('index'))
     else:
         return redirect(url_for('login'))
@@ -54,6 +77,9 @@ def loginProses():
 
 @app.route('/register')
 def register():
+    if 'email' in session:
+        return redirect(url_for('index'))
+
     title = 'Register'
 
     return render_template('register.html', title=title)
@@ -61,6 +87,9 @@ def register():
 
 @app.route('/register', methods=['POST'])
 def registerProses():
+    if 'email' in session:
+        return redirect(url_for('index'))
+
     nama = request.form['nama']
     email = request.form['email']
     password = request.form['password']
@@ -73,7 +102,13 @@ def registerProses():
 
 @app.route('/logout')
 def logout():
-    session.pop('nama', None)
+
+    if 'email' not in session:
+        return redirect(url_for('login'))
+
+    session.pop('email', None)
+    session.pop('token', None)
+
     return redirect(url_for('index'))
 
 # parsing nilai int
